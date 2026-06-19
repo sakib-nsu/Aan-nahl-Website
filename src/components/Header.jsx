@@ -134,7 +134,7 @@ export default function Header() {
               <Link
                 to="/contact-us"
                 onClick={() => setIsOpen(false)}
-                className="block w-full bg-[#ff9828] px-5 py-4 text-center text-sm font-bold rou uppercase tracking-wide text-white transition-all duration-300 hover:bg-[#f58212]"
+                className="block w-full bg-[#ff9828] px-5 py-4 text-center text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-[#f58212]"
               >
                 Get in Touch
               </Link>
