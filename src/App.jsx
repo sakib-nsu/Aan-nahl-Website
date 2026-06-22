@@ -1,9 +1,10 @@
-
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import Team from "./pages/Team";
+
 import Hero from "./components/Hero";
 import ServicesList from "./components/ServicesList";
 import ContactForm from "./components/ContactForm";
@@ -45,7 +46,6 @@ function AboutUsPage() {
         title="About Us"
         subtitle="We build digital solutions for clients worldwide."
       />
-
       <section className="px-6 py-20">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2">
           <div>
@@ -61,8 +61,7 @@ function AboutUsPage() {
             <p className="text-lg leading-8 text-slate-700">
               We are a custom software company in Bangladesh. We started as a
               start-up software outsourcing company in 2004. We became a
-              Bangladesh limited company in 2005 and have been growing every
-              year.
+              Bangladesh limited company in 2005 and have been growing every year.
             </p>
 
             <p className="mt-5 text-lg leading-8 text-slate-700">
@@ -71,34 +70,6 @@ function AboutUsPage() {
               testing, deployment, content, and technical solutions.
             </p>
           </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function TeamPage() {
-  return (
-    <>
-      <PageBanner
-        title="Team"
-        subtitle="Meet the people behind our digital solutions."
-      />
-
-      <section className="px-6 py-20">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-3">
-          {["Design Team", "Development Team", "Quality Team"].map((item) => (
-            <div
-              key={item}
-              className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200"
-            >
-              <h3 className="text-xl font-bold text-slate-950">{item}</h3>
-              <p className="mt-4 leading-7 text-slate-600">
-                Our skilled team works together to deliver reliable and scalable
-                software solutions.
-              </p>
-            </div>
-          ))}
         </div>
       </section>
     </>
@@ -136,7 +107,6 @@ function CareerPage() {
         title="Career"
         subtitle="Build your career with a passionate software team."
       />
-
       <section className="px-6 py-20">
         <div className="mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
           <h2 className="text-3xl font-extrabold text-slate-950">
@@ -172,12 +142,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
-        <Route path="/team" element={<TeamPage />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/career" element={<CareerPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
-
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
@@ -185,4 +154,3 @@ export default function App() {
     </>
   );
 }
-

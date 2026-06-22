@@ -36,6 +36,8 @@ const technologies = [
 ];
 
 export default function TechExpertise() {
+  const movingLogos = [...technologies, ...technologies];
+
   return (
     <>
       <section className="relative isolate overflow-hidden bg-white px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
@@ -72,35 +74,25 @@ export default function TechExpertise() {
             </p>
           </div>
 
-          {/* Logo Grid */}
-          <div className="mt-20 grid grid-cols-2 items-center justify-items-center gap-8 sm:grid-cols-3 lg:grid-cols-6">
-            {technologies.slice(0, 6).map((tech, index) => (
-              <TechLogo key={tech.name} tech={tech} index={index} />
-            ))}
-          </div>
+          {/* Single Moving Logo Row */}
+          <div className="relative mt-20 overflow-hidden">
+            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-28 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-28 bg-gradient-to-l from-white to-transparent" />
 
-          {/* Second Row */}
-          <div className="mt-10 grid grid-cols-2 items-center justify-items-center gap-8 sm:mx-auto sm:max-w-xl">
-            {technologies.slice(6).map((tech, index) => (
-              <TechLogo key={tech.name} tech={tech} index={index + 6} />
-            ))}
+            <div className="tech-marquee flex w-max flex-nowrap items-center gap-8 whitespace-nowrap">
+              {movingLogos.map((tech, index) => (
+                <TechLogo
+                  key={`${tech.name}-${index}`}
+                  tech={tech}
+                  index={index}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <style>{`
-        @keyframes techFadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(28px);
-          }
-
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         @keyframes techBlob {
           0% {
             transform: translate(0, 0) scale(1);
@@ -136,8 +128,28 @@ export default function TechExpertise() {
           }
         }
 
-        .tech-card {
-          animation: techFadeUp 0.75s ease both;
+        @keyframes logoMarquee {
+          0% {
+            transform: translateX(0);
+          }
+
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes logoFloat {
+          0% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-10px);
+          }
+
+          100% {
+            transform: translateY(0);
+          }
         }
 
         .tech-blob {
@@ -155,6 +167,18 @@ export default function TechExpertise() {
         .tech-delay-4 {
           animation-delay: 4s;
         }
+
+        .tech-marquee {
+          animation: logoMarquee 28s linear infinite;
+        }
+
+        .tech-marquee:hover {
+          animation-play-state: paused;
+        }
+
+        .tech-logo-float {
+          animation: logoFloat 3.8s ease-in-out infinite;
+        }
       `}</style>
     </>
   );
@@ -163,9 +187,9 @@ export default function TechExpertise() {
 function TechLogo({ tech, index }) {
   return (
     <div
-      className="tech-card group relative flex h-32 w-full max-w-[190px] items-center justify-center rounded-3xl border border-transparent bg-white/75 p-6 shadow-sm backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-[#ff9828]/30 hover:bg-white hover:shadow-[0_22px_70px_rgba(255,152,40,0.18)]"
+      className="tech-logo-float group relative flex h-32 w-[190px] shrink-0 items-center justify-center rounded-3xl border border-transparent bg-white/80 p-6 shadow-sm backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-[#ff9828]/30 hover:bg-white hover:shadow-[0_22px_70px_rgba(255,152,40,0.18)]"
       style={{
-        animationDelay: `${index * 100}ms`,
+        animationDelay: `${index * 120}ms`,
       }}
     >
       <div className="absolute inset-x-8 top-0 h-1 scale-x-0 rounded-full bg-[#ff9828] transition-transform duration-500 group-hover:scale-x-100" />
