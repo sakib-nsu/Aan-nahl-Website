@@ -22,7 +22,6 @@ export default function ContactForm() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-[#0b0b0b] px-4 py-20 text-white sm:px-6 lg:px-8 lg:py-28">
-        {/* Background Image + Overlay */}
         <div
           className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
           style={{
@@ -33,7 +32,6 @@ export default function ContactForm() {
 
         <div className="absolute inset-0 -z-10 bg-black/75" />
 
-        {/* Animated Background Glow */}
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="contact-blob absolute -left-32 top-12 h-96 w-96 rounded-full bg-[#ff9828]/25 blur-3xl" />
           <div className="contact-blob contact-delay-2 absolute -right-32 bottom-10 h-[420px] w-[420px] rounded-full bg-orange-500/20 blur-3xl" />
@@ -42,13 +40,11 @@ export default function ContactForm() {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:48px_48px] opacity-30" />
         </div>
 
-        {/* Floating Dots */}
         <span className="contact-float absolute left-[8%] top-32 h-3 w-3 rounded-full bg-[#ff9828]/70" />
         <span className="contact-float contact-delay-2 absolute right-[12%] top-52 h-4 w-4 rounded-full bg-orange-400/60" />
         <span className="contact-float contact-delay-4 absolute bottom-32 left-[20%] h-2.5 w-2.5 rounded-full bg-amber-300/70" />
 
         <div className="mx-auto max-w-7xl">
-          {/* Heading */}
           <div className="mx-auto mb-14 max-w-3xl text-center">
             <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#ff9828]/30 bg-white/10 px-5 py-2 text-xs font-extrabold uppercase tracking-[0.25em] text-[#ffb35c] backdrop-blur">
               <MessageCircle className="h-4 w-4" />
@@ -66,7 +62,6 @@ export default function ContactForm() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-            {/* Contact Info */}
             <div className="space-y-5">
               <ContactInfoCard
                 icon={Phone}
@@ -101,7 +96,6 @@ export default function ContactForm() {
               </div>
             </div>
 
-            {/* Form */}
             <form
               onSubmit={handleSubmit}
               className="rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-[0_28px_90px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10"
@@ -166,6 +160,17 @@ export default function ContactForm() {
                 <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             </form>
+          </div>
+
+          <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-[0_28px_90px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+            <iframe
+              title="Aan Nahl Location Map"
+              src="https://www.google.com/maps?q=Dhaka,Bangladesh&output=embed"
+              className="h-[360px] w-full rounded-[1.5rem] border-0 grayscale transition duration-500 hover:grayscale-0 md:h-[450px]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </div>
       </section>
