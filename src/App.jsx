@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Team from "./pages/Team";
+import Career from "./pages/Career";
 
 import Hero from "./components/Hero";
 import ServicesList from "./components/ServicesList";
@@ -46,12 +47,14 @@ function AboutUsPage() {
         title="About Us"
         subtitle="We build digital solutions for clients worldwide."
       />
+
       <section className="px-6 py-20">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#ff9828]">
               In a Nutshell
             </p>
+
             <h2 className="mt-4 text-3xl font-extrabold text-slate-950 md:text-4xl">
               A trusted software partner from Bangladesh
             </h2>
@@ -61,7 +64,8 @@ function AboutUsPage() {
             <p className="text-lg leading-8 text-slate-700">
               We are a custom software company in Bangladesh. We started as a
               start-up software outsourcing company in 2004. We became a
-              Bangladesh limited company in 2005 and have been growing every year.
+              Bangladesh limited company in 2005 and have been growing every
+              year.
             </p>
 
             <p className="mt-5 text-lg leading-8 text-slate-700">
@@ -103,21 +107,7 @@ function PortfolioPage() {
 function CareerPage() {
   return (
     <>
-      <PageBanner
-        title="Career"
-        subtitle="Build your career with a passionate software team."
-      />
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <h2 className="text-3xl font-extrabold text-slate-950">
-            Join Our Team
-          </h2>
-          <p className="mt-4 text-lg leading-8 text-slate-700">
-            We are always looking for talented people in software development,
-            design, quality assurance, and technology.
-          </p>
-        </div>
-      </section>
+      <Career />
     </>
   );
 }
