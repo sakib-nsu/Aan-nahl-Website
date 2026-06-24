@@ -1,6 +1,9 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function Hero() {
+  const canvasRef = useRef(null);
+
   const handleScrollDown = () => {
     const nextSection = document.getElementById("next-section");
 
@@ -12,18 +15,159 @@ export default function Hero() {
     }
   };
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    let width = 0;
+    let height = 0;
+    let animationFrameId;
+
+    const colors = ["#315cff", "#ff0095", "#4da3ff"];
+    const points = [];
+
+    const resizeCanvas = () => {
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+
+      canvas.width = width * window.devicePixelRatio;
+      canvas.height = height * window.devicePixelRatio;
+
+      ctx.setTransform(
+        window.devicePixelRatio,
+        0,
+        0,
+        window.devicePixelRatio,
+        0,
+        0
+      );
+    };
+
+    const createPoints = () => {
+      points.length = 0;
+
+      const totalPoints = window.innerWidth < 768 ? 42 : 78;
+
+      for (let i = 0; i < totalPoints; i++) {
+        const sideBias = Math.random();
+
+        points.push({
+          x:
+            sideBias < 0.42
+              ? Math.random() * width * 0.32
+              : sideBias > 0.58
+              ? width * 0.68 + Math.random() * width * 0.32
+              : Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          radius: Math.random() * 2.5 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+        });
+      }
+    };
+
+    const drawGlow = (x, y, color, size = 24) => {
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(0.35, `${color}99`);
+      gradient.addColorStop(1, `${color}00`);
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fill();
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      ctx.fillStyle = "rgba(4, 7, 24, 0.72)";
+      ctx.fillRect(0, 0, width, height);
+
+      points.forEach((point) => {
+        point.x += point.vx;
+        point.y += point.vy;
+
+        if (point.x < -50 || point.x > width + 50) point.vx *= -1;
+        if (point.y < -50 || point.y > height + 50) point.vy *= -1;
+      });
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i];
+          const b = points[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const maxDistance = 190;
+
+          if (distance < maxDistance) {
+            const opacity = 1 - distance / maxDistance;
+
+            ctx.strokeStyle =
+              a.color === "#ff0095"
+                ? `rgba(255, 0, 149, ${opacity * 0.42})`
+                : `rgba(49, 92, 255, ${opacity * 0.5})`;
+
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      points.forEach((point, index) => {
+        if (index % 9 === 0) {
+          drawGlow(point.x, point.y, point.color, 28);
+        }
+
+        ctx.fillStyle = point.color;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    resizeCanvas();
+    createPoints();
+    animate();
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createPoints();
+    });
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-[760px] overflow-hidden bg-[url('https://images.unsplash.com/photo-1606857521015-7f9fcf423740?fm=jpg&q=80&w=3000&auto=format&fit=crop')] bg-cover bg-center text-white lg:min-h-screen">
+    <section className="relative min-h-[760px] overflow-hidden bg-[#050719] text-white lg:min-h-screen">
+      {/* Animated network background */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 h-full w-full"
+        aria-hidden="true"
+      />
+
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/65" />
+      <div className="absolute inset-0 bg-black/45" />
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#070826]/70 via-black/35 to-black/90" />
 
-      {/* Animated glow */}
+      {/* Extra glowing blobs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="hero-blob absolute -left-32 top-28 h-96 w-96 rounded-full bg-[#ff9828]/25 blur-3xl" />
-        <div className="hero-blob hero-delay-2 absolute -right-32 bottom-20 h-[420px] w-[420px] rounded-full bg-orange-500/20 blur-3xl" />
+        <div className="hero-blob absolute left-[8%] top-[10%] h-24 w-24 rounded-full bg-[#ff0095]/30 blur-3xl" />
+        <div className="hero-blob hero-delay-2 absolute right-[16%] top-[45%] h-32 w-32 rounded-full bg-[#315cff]/30 blur-3xl" />
+        <div className="hero-blob hero-delay-3 absolute bottom-[14%] left-[34%] h-28 w-28 rounded-full bg-[#ff0095]/25 blur-3xl" />
       </div>
 
       {/* Hero content */}
@@ -82,7 +226,7 @@ export default function Hero() {
       </button>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/90 to-transparent" />
 
       <style>{`
         @keyframes heroBlob {
@@ -126,6 +270,10 @@ export default function Hero() {
 
         .hero-delay-2 {
           animation-delay: 2s;
+        }
+
+        .hero-delay-3 {
+          animation-delay: 4s;
         }
 
         .scroll-dot {

@@ -90,23 +90,23 @@ export default function Team() {
   return (
     <>
       {/* Unique Banner */}
-      <section className="relative overflow-hidden bg-[#04152d] px-6 pb-24 pt-44 text-white">
-        <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-[#00a86b]/30 blur-3xl"></div>
-        <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-[#ff9828]/30 blur-3xl"></div>
+      <section className="relative overflow-hidden bg-[#F7F3EA] px-6 pb-24 pt-44 text-[#1F2937]">
+        <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-[#E8DCC7]/50 blur-3xl"></div>
+        <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-[#F5C77E]/35 blur-3xl"></div>
 
         <div className="relative mx-auto max-w-7xl">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div>
-              <p className="mb-4 inline-block rounded-full border border-white/20 px-5 py-2 text-sm font-bold uppercase tracking-widest text-[#00c985]">
+              <p className="mb-4 inline-block rounded-full border border-[#C9892B]/25 bg-white/70 px-5 py-2 text-sm font-bold uppercase tracking-widest text-[#B36B12]">
                 Meet Our Experts
               </p>
 
-              <h1 className="text-5xl font-extrabold leading-tight md:text-7xl">
+              <h1 className="text-5xl font-extrabold leading-tight text-[#2B241D] md:text-7xl">
                 Our Creative <br />
-                <span className="text-[#00c985]">Leadership Team</span>
+                <span className="text-[#C9892B]">Leadership Team</span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+              <p className="mt-6 max-w-xl text-lg leading-8 text-[#6B6258]">
                 A dedicated team of professionals working together to build
                 reliable, scalable, and high-quality digital solutions.
               </p>
@@ -118,7 +118,7 @@ export default function Team() {
                   key={member.id}
                   src={member.image}
                   alt={member.name}
-                  className={`h-24 w-24 rounded-3xl object-cover shadow-2xl ring-4 ring-white/10 transition duration-500 hover:-translate-y-3 hover:scale-105 ${
+                  className={`h-24 w-24 rounded-3xl object-cover shadow-xl ring-4 ring-white transition duration-500 hover:-translate-y-3 hover:scale-105 ${
                     index % 2 === 0 ? "mt-10" : ""
                   }`}
                 />
